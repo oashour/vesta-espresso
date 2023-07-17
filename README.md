@@ -27,8 +27,10 @@ vesta pw.in test.cif POSCAR.vasp
 ```
 5. Download the `.dmg` file from the [releases](https://github.com/oashour/vesta-espresso/releases) page. This contains a `.app` file that you can drag into your `/Applications/VESTA` folder. If you add this to your Dock, you'll be able to drag Quantum ESPRESSO input files with the extensions `.in` or `.pwi` onto the icon to open them in VESTA. You can also change the default app of those files in Finder to `VESTA (QE).app` to open them with VESTA.
 6. If you would like to be able to right click `.in/.pwi` files and select "Open with -> VESTA (QE).app", then you will need to run the following command in your terminal:
+
 ```bash
 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f /Applications/VESTA/VESTA\ \(QE\).app
+killall Finder
 ```
 
 Note that you can't use the `open` dialogue within VESTA to open Quantum ESPRESSO files. The script and App simply act as wrappers around VESTA. Either use Finder (whether by setting `VESTA (QE).app` as the default file or right click -> open with), or drag the file onto the App icon in the Dock.
