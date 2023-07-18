@@ -10,7 +10,7 @@ import pathlib
 import f90nml
 
 from pwi2poscar.utils import ibrav_to_lattice
-from pwi2poscar.base import (
+from pwi2poscar.cards import (
     AtomicPositionsCard,
     CellParametersCard,
 )
