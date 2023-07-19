@@ -6,8 +6,6 @@ import re
 import warnings
 import math
 
-import numpy as np
-
 
 def parse_pwvals(val):
     """
@@ -24,11 +22,6 @@ def parse_pwvals(val):
         val = {k: parse_pwvals(v) for k, v in val.items()}
     elif isinstance(val, list):
         val = [parse_pwvals(x) for x in val]
-    elif isinstance(val, np.ndarray):
-        val = [parse_pwvals(x) for x in val]
-        # Don't return as array unless all elements are same type
-        if all(isinstance(x, type(val[0])) for x in val):
-            val = np.array(val)
     elif val is None:
         val = None
     elif " " in val:
@@ -79,29 +72,29 @@ def ibrav_to_lattice(ibrav, celldm):
         # Hexagonal and Trigonal P
         c = celldm[2] * a
         a1 = [a, 0, 0]
-        a2 = [-a / 2, a * np.sqrt(3) / 2, 0]
+        a2 = [-a / 2, a * math.sqrt(3) / 2, 0]
         a3 = [0, 0, c]
     elif ibrav == 5:
         # Trigonal R, 3-fold axis c
         # The crystallographic vectors form a three-fold star around
         # the z-axis, the primitive cell is a simple rhombohedron.
         cos_g = celldm[3]  # cos(gamma)
-        tx = np.sqrt((1 - cos_g) / 2)
-        ty = np.sqrt((1 - cos_g) / 6)
-        tz = np.sqrt((1 + 2 * cos_g) / 3)
+        tx = math.sqrt((1 - cos_g) / 2)
+        ty = math.sqrt((1 - cos_g) / 6)
+        tz = math.sqrt((1 + 2 * cos_g) / 3)
         a1 = [a * tx, -a * ty, a * tz]
         a2 = [0, 2 * a * ty, a * tz]
         a3 = [-a * tx, -a * ty, a * tz]
     elif ibrav == -5:
         # Trigonal R, 3-fold axis (111);
         # The crystallographic vectors form a three-fold star around (111)
-        a_p = a / np.sqrt(3)  # a'
+        a_p = a / math.sqrt(3)  # a'
         cos_g = celldm[3]  # cos(gamma)
-        tx = np.sqrt((1 - cos_g) / 2)
-        ty = np.sqrt((1 - cos_g) / 6)
-        tz = np.sqrt((1 + 2 * cos_g) / 3)
-        u = tz - 2 * np.sqrt(2) * ty
-        v = tz + np.sqrt(2) * ty
+        tx = math.sqrt((1 - cos_g) / 2)
+        ty = math.sqrt((1 - cos_g) / 6)
+        tz = math.sqrt((1 + 2 * cos_g) / 3)
+        u = tz - 2 * math.sqrt(2) * ty
+        v = tz + math.sqrt(2) * ty
         a1 = [a_p * u, a_p * v, a_p * v]
         a2 = [a_p * v, a_p * u, a_p * v]
         a3 = [a_p * v, a_p * v, a_p * u]
@@ -208,7 +201,7 @@ def ibrav_to_lattice(ibrav, celldm):
         sin_g = math.sqrt(1 - cos_g**2)  # sin(gamma)
         cos_b = celldm[4]  # cos(beta)
         cos_a = celldm[5]  # cos(alpha)
-        vol = np.sqrt(1 + 2 * cos_a * cos_b * cos_g - cos_a**2 - cos_b**2 - cos_g**2)
+        vol = math.sqrt(1 + 2 * cos_a * cos_b * cos_g - cos_a**2 - cos_b**2 - cos_g**2)
 
         a1 = [a, 0, 0]
         a2 = [b * cos_g, b * sin_g, 0]
@@ -216,7 +209,7 @@ def ibrav_to_lattice(ibrav, celldm):
     else:
         raise ValueError(f"Unknown ibrav: {ibrav}.")
 
-    return np.array([a1, a2, a3])
+    return [a1, a2, a3]
 
 
 def _validate_celldm(ibrav, celldm):

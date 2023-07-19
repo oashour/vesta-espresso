@@ -9,8 +9,8 @@ import pathlib
 
 import f90nml
 
-from pwi2poscar.utils import ibrav_to_lattice
-from pwi2poscar.cards import (
+from vesta_espresso.utils import ibrav_to_lattice
+from vesta_espresso.cards import (
     AtomicPositionsCard,
     CellParametersCard,
 )

@@ -1,12 +1,12 @@
 """
-This module defines the base input file classes
+This module defines the card classes
 """
 from abc import ABC, abstractmethod
 import logging
 import re
 from enum import Enum
 
-from pwi2poscar.utils import parse_pwvals
+from vesta_espresso.utils import parse_pwvals
 
 
 class InputCard(ABC):
