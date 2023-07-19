@@ -2,4 +2,13 @@
 example/
 Mac/*.pptx
 Mac/build/**
-
+Mac/*.app
+__pycache__
+Mac/nuitka
+Mac/venv
+*.ipynb
+examples/
+*egg*
+.vesta-espresso.log
+vesta_espresso/vesta-espresso.py
+*v*.dmg
