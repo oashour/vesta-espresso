@@ -41,7 +41,7 @@ vesta file1.in file2.pwi file3.cif file4.vasp
 
 ### Command Line Installation
 
-If you're not using Linux or you just want to use the script without the Mac App (i.e., no Finder integration), you can install it with `pip`. I haven't tested this on Windows.
+If you're using Linux or you just want to use the script without the Mac App (i.e., no Finder integration), you can install it with `pip`. I haven't tested this on Windows.
 
 ```bash
 # Activate venv, or user pip install --user, or whatever you prefer
