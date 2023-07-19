@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # This script is used to run the application on Mac OS X.
-echo "Running Vesta Espresso on Mac OS X..."
-echo "Arguments are $@"
+# TODO: this is completely unnecessary...
 
 "$PWD/vesta-espresso.dist/vesta-espresso" "$@"

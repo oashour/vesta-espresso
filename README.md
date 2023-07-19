@@ -1,5 +1,7 @@
 # vesta-espresso
 
+This repository contains a simple Python package and Mac app that allows you to open Quantum ESPRESSO input files in VESTA.
+
 [VESTA](https://jp-minerals.org/vesta/en/) is an extremely powerful and useful tool heavily used in the condensed matter physics, quantum chemistry and materials science communities. However, it does not natively support viewing Quantum ESPRESSO (QE) input files (which contain the structural information). Unfortunately, since VESTA is closed-source, third-party developers cannot add this functionality to VESTA.
 
 This repository contains a simple and ultra-lightweight Python package that allows you to open Quantum ESPRESSO input files in VESTA. (We consider files with `.pwi` or `.in` extensions to be QE files). If you're on a Mac, you can simply download the app from the [releases](https://github.com/oashour/vesta-espresso/releases) page and use VESTA to open QE files from Finder like you would with a CIF or VASP POSCAR. If not, you can install the command line tool with `pip` and open the files in VESTA by simply typing `vesta-espresso <input file>` in your terminal. See below for installation instructions.
@@ -8,7 +10,7 @@ The script and app can accept both Quantum ESPRESSO input files and other VESTA-
 
 Currently, `vesta-espresso` supports all types and units of structure specification (`alat`, `crystal`, `angstrom`, etc.), including all `ibrav != 0`, except for `crystal_sg` (i.e., specifying the space group and inequivalent atoms).
 
-Our QE input to POSCAR conversion is based on a stripped-down and extremely minimalist version of [pymatgen-io-espresso](https://github.com/oashour/pymatgen-io-espresso), with [f90nml](https://github.com/marshallward/f90nml), an ultralight Fortran namelist parser, as the sole dependency. Using `pymatgen-io-espresso` with this project (as in v0.0.1) lead to a huge package/app due to the Pymatgen dependency (700+ MB). On the other hand, installing `vesta-espresso` with `pip` takes up about 300 kB, and the entire Mac app is 2.5 MB and has no external dependencies, just drag and drop.
+Our QE input to POSCAR conversion is based on a stripped-down and extremely minimalist version of [pymatgen-io-espresso](https://github.com/oashour/pymatgen-io-espresso), with [f90nml](https://github.com/marshallward/f90nml), an ultralight Fortran namelist parser, as the sole dependency. Using `pymatgen-io-espresso` with this project (as in v0.0.1) lead to a huge package/app due to the Pymatgen dependency (700+ MB). On the other hand, installing `vesta-espresso` with `pip` takes up about 300 kB, and the entire Mac app is 10-20 MB and has no external dependencies, just drag and drop.
 
 ## Requirements
 
