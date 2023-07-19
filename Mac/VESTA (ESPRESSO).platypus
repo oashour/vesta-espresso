@@ -9,9 +9,11 @@
 	<key>Authentication</key>
 	<false/>
 	<key>Author</key>
-	<string>Omar Ashour</string>
+	<string>Omar A. Ashour</string>
 	<key>BundledFiles</key>
-	<array/>
+	<array>
+		<string>/Users/ashour/code/vesta-espresso/Mac/nuitka/vesta-espresso.dist</string>
+	</array>
 	<key>Creator</key>
 	<string>Platypus-5.4.1</string>
 	<key>DeclareService</key>
@@ -21,15 +23,15 @@
 	<key>DevelopmentVersion</key>
 	<false/>
 	<key>DocIconPath</key>
-	<string></string>
+	<string>/Users/ashour/code/vesta-espresso/Mac/vesta-espresso-file.icns</string>
 	<key>Droppable</key>
 	<true/>
 	<key>ExecutablePath</key>
 	<string>/usr/local/share/platypus/ScriptExec</string>
 	<key>IconPath</key>
-	<string>/Users/ashour/Library/Application Support/Platypus/PlatypusIcon-56113.icns</string>
+	<string>/Users/ashour/code/vesta-espresso/Mac/vesta-espresso.icns</string>
 	<key>Identifier</key>
-	<string>org.ashour.vesta-espresso</string>
+	<string>org.oashour.vesta-espresso</string>
 	<key>InterfaceType</key>
 	<string>None</string>
 	<key>InterpreterArgs</key>
@@ -37,7 +39,7 @@
 	<key>InterpreterPath</key>
 	<string>/bin/bash</string>
 	<key>Name</key>
-	<string>VESTA (QE)</string>
+	<string>VESTA (ESPRESSO)</string>
 	<key>NibPath</key>
 	<string>/usr/local/share/platypus/MainMenu.nib</string>
 	<key>OptimizeApplication</key>
@@ -53,7 +55,7 @@
 	<key>ScriptArgs</key>
 	<array/>
 	<key>ScriptPath</key>
-	<string>/Users/ashour/code/vesta-espresso/vesta_espresso.sh</string>
+	<string>/Users/ashour/code/vesta-espresso/Mac/entry_point.sh</string>
 	<key>SendNotifications</key>
 	<false/>
 	<key>StatusItemDisplayType</key>
@@ -238,8 +240,8 @@
 	<true/>
 	<key>Suffixes</key>
 	<array>
-		<string>in</string>
 		<string>pwi</string>
+		<string>in</string>
 	</array>
 	<key>TextBackground</key>
 	<string>#ffffff</string>
@@ -254,6 +256,6 @@
 	<key>UniformTypes</key>
 	<array/>
 	<key>Version</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 </dict>
 </plist>
