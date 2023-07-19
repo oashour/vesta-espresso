@@ -12,3 +12,4 @@ examples/
 .vesta-espresso.log
 vesta_espresso/vesta-espresso.py
 *v*.dmg
+build/
