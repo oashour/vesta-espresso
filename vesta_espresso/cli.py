@@ -127,7 +127,7 @@ def create_poscars(filenames):
     for i, f in enumerate(filenames):
         if os.path.splitext(f)[1] in [".in", ".pwi"]:
             poscar = os.path.join(
-                os.path.dirname(f), f".{os.path.splitext(os.path.basename(f))[0]}.vasp"
+                os.path.dirname(f), f".{os.path.basename(f)}.vasp"
             )
             temp_poscars.append(poscar)
             logging.debug("Creating %s from %s", poscar, f)
