@@ -63,7 +63,7 @@ def _get_parser():
         formatter_class=RawTextHelpFormatter,
     )
 
-    parser.add_argument("filenames", nargs="+", help="Files to open in VESTA")
+    parser.add_argument("filenames", nargs="*", help="Files to open in VESTA")
 
     parser.add_argument(
         "--version",
@@ -74,7 +74,6 @@ def _get_parser():
     parser.add_argument(
         "--verbose",
         "-v",
-        # metavar="V",
         action="store_true",
         help="Enable verbose output",
     )
@@ -82,7 +81,6 @@ def _get_parser():
     parser.add_argument(
         "--keep",
         "-k",
-        # metavar="K",
         action="store_true",
         help="Don't clean up temporary/scratch directories after exit (e.g., .codex)",
     )
