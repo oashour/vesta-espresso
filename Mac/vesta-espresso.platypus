@@ -11,9 +11,7 @@
 	<key>Author</key>
 	<string>Omar A. Ashour</string>
 	<key>BundledFiles</key>
-	<array>
-		<string>/Users/ashour/code/vesta-espresso/Mac/build/v0.0.3/nuitka/vesta-espresso.dist</string>
-	</array>
+	<array/>
 	<key>Creator</key>
 	<string>Platypus-5.4.1</string>
 	<key>DeclareService</key>
