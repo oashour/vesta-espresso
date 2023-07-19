@@ -17,11 +17,11 @@ Our QE input to POSCAR conversion is based on a stripped-down and extremely mini
 
 ## Installation Instructions
 
-# Mac
+### Mac
 
-These instructions assume you have already downloaded [VESTA](https://jp-minerals.org/vesta/en/) and installed it in the default location (`/Applications/VESTA.app`).
+Download the `.dmg` file from the [releases](https://github.com/oashour/vesta-espresso/releases) page and install it the usual way. If VESTA was installed the default way, you don't need to configure anything, the VESTA (ESPRESSO).app should just work. 
 
-Download the `.dmg` file from the [releases](https://github.com/oashour/vesta-espresso/releases) page and install the app as usual. If you add this to your Dock, you'll be able to drag Quantum ESPRESSO input files with the extensions `.in` or `.pwi` onto the icon to open them in VESTA, or right-click them in Finder and select 'Open With -> Vesta (ESPRESSO).app'. You can also change the default app to VESTA (ESPRESSO).app as well.
+If you add it to your Dock, you'll be able to drag Quantum ESPRESSO input files with the extensions `.in` or `.pwi` onto the icon to open them in VESTA, or right-click them in Finder and select 'Open With -> Vesta (ESPRESSO).app'. You can also change the default app to VESTA (ESPRESSO).app as well.
 
 Note that you can't use the `open` dialogue within VESTA to open Quantum ESPRESSO files. The app only acts as a wrapper around VESTA and doesn't add any functionality to the program itself.
 
@@ -37,7 +37,7 @@ Now you can call VESTA from the command line with both Quantum ESPRESSO files an
 vesta file1.in file2.pwi file3.cif file4.vasp
 ```
 
-## Command Line Installation
+### Command Line Installation
 
 If you're not using Linux or you just want to use the script without the Mac App (i.e., no Finder integration), you can install it with `pip`. I haven't tested this on Windows.
 
@@ -52,8 +52,10 @@ For Linux, you need to add the VESTA binary to your path (it should have the def
 export PATH=/path/to/vesta/bin:$PATH
 ```
 
-On Mac, you don't need to do anything if VESTA is installed in the default location (`/Applications/VESTA/VESTA.app`). If it's not, adding it to the path won't work (see this [bug](https://groups.google.com/g/vesta-discuss/c/Cq1_QJwrvhU/m/bU_GYBemBgAJ)), so you'll need to create an Alias
+On Mac, you don't need to do anything if VESTA is installed in the default location (`/Applications/VESTA/VESTA.app`). If it's not, adding it to the path won't work (see this [bug](https://groups.google.com/g/vesta-discuss/c/Cq1_QJwrvhU/m/bU_GYBemBgAJ) on the google group), so you'll need to create an alias instead.
 
 ```bash
 alias VESTA="/path/to/VESTA.app/Contents/MacOS/VESTA"
 ```
+
+You can now use the `vesta-espresso` command, which I recommend aliasing to `vesta` in `.bashrc` since it can work with both QE and natively-supported input files.
