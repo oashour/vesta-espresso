@@ -1,11 +1,11 @@
 """
-Classes for reading/manipulating PWscf xml files.
+Classes for reading structures pw.x input files and writing VASP POSCARs
 """
 
 
 from copy import copy
-import itertools
 import pathlib
+import re
 
 import f90nml
 
@@ -76,6 +76,7 @@ class PWinStructure:
 
     @classmethod
     def _parse_cards(cls, pwi_str):
+        pwi_str = re.sub(r"\t", " ", pwi_str)
         card_strings = pwi_str.rsplit("/", 1)[1].split("\n")
         card_strings = [c for c in card_strings if c]
         card_idx = [
