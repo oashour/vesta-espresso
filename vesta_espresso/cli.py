@@ -23,6 +23,21 @@ __summary__ = metadata["Summary"]
 __URL__ = metadata["Home-page"]
 
 
+def _setup_tmpdir():
+    """
+    Set up a temporary directory $HOME/.vesta-espresso 
+    to store temporary files
+    """
+    tmpdir = os.path.join(os.getenv("HOME"), ".vesta-espresso")
+    if not os.path.exists(tmpdir):
+        logging.debug(f"Creating temporary directory {tmpdir}")
+        os.makedirs(tmpdir)
+    scratch = os.path.join(tmpdir, "scratch")
+    if not os.path.exists(scratch):
+        logging.debug(f"Creating scratch directory {scratch}")
+        os.makedirs(scratch)
+    return tmpdir
+
 def _run_command(command):
     """
     Run a command and return the result. If the command fails, raise an exception.
@@ -32,19 +47,19 @@ def _run_command(command):
     logging.debug(f"Command: {command}")
     command = shlex.split(command)
 
-    try:
-        result = subprocess.run(command, capture_output=True, check=True)
-    except subprocess.CalledProcessError as exc:
-        logging.error(
-            f"Status : FAIL (return code {exc.returncode}),\n"
-            f"stdout:\n {exc.stdout},\n"
-            f"stderr:\n {exc.stderr}"
-        )
-        return exc.returncode
-    if result.stdout:
-        logging.debug(f"Command stdout: {result.stdout.decode('utf-8')}")
-    if result.stderr:
-        logging.debug(f"Command stderr: {result.stderr.decode('utf-8')}")
+    #try:
+    result = subprocess.Popen(command)#, capture_output=True, check=True)
+    #except subprocess.CalledProcessError as exc:
+    #    logging.error(
+    #        f"Status : FAIL (return code {exc.returncode}),\n"
+    #        f"stdout:\n {exc.stdout},\n"
+    #        f"stderr:\n {exc.stderr}"
+    #    )
+    #    return exc.returncode
+    #if result.stdout:
+    #    logging.debug(f"Command stdout: {result.stdout.decode('utf-8')}")
+    #if result.stderr:
+    #    logging.debug(f"Command stderr: {result.stderr.decode('utf-8')}")
 
     return result.returncode
 
@@ -78,12 +93,12 @@ def _get_parser():
         help="Enable verbose output",
     )
 
-    parser.add_argument(
-        "--keep",
-        "-k",
-        action="store_true",
-        help="Don't clean up temporary/scratch directories after exit (e.g., .codex)",
-    )
+    #parser.add_argument(
+    #    "--keep",
+    #    "-k",
+    #    action="store_true",
+    #    help="Don't clean up temporary/scratch files after exit (e.g., .pw.in.vasp)",
+    #)
 
     return parser
 
@@ -118,7 +133,7 @@ def _setup_logger(verbose):
     logger.addHandler(stream_handler)
 
 
-def create_poscars(filenames):
+def create_poscars(filenames, tmpdir):
     """
     Creates temporary POSCARs from .in or .pwi files
     Doesn't touch non-espresso files
@@ -127,7 +142,7 @@ def create_poscars(filenames):
     for i, f in enumerate(filenames):
         if os.path.splitext(f)[1] in [".in", ".pwi"]:
             poscar = os.path.join(
-                os.path.dirname(f), f".{os.path.basename(f)}.vasp"
+                tmpdir, "scratch", f".{os.path.basename(f)}.vasp"
             )
             temp_poscars.append(poscar)
             logging.debug("Creating %s from %s", poscar, f)
@@ -147,6 +162,7 @@ def main():
         sys.exit(f"vesta-espresso version {__version__}")
 
     vesta = _get_vesta()
+    tmpdir = _setup_tmpdir()
 
     if filenames := args.filenames:
         # Get extensions of all filenames
@@ -154,19 +170,20 @@ def main():
         # Check if .in or .pwi files are present
         if ".in" in extensions or ".pwi" in extensions:
             logging.debug("Detected some QE files. Creating temporary POSCARs.")
-            filenames, temp_poscars = create_poscars(filenames)
+            filenames, temp_poscars = create_poscars(filenames, tmpdir)
         else:
             logging.debug('Running "vesta" with provided files as is.')
         try:
             _run_command(f"{vesta} {' '.join(filenames)}")
         finally:
-            if not args.keep:
-                logging.debug("Cleaning up temporary files.")
-                for f in temp_poscars:
-                    if os.path.exists(f):
-                        logging.debug("Cleaning up: %s", f)
-                        os.remove(f)
-            sys.exit(1)
+            sys.exit(0)
+            #if not args.keep:
+            #    logging.debug("Cleaning up temporary files.")
+            #    for f in temp_poscars:
+            #        if os.path.exists(f):
+            #            logging.debug("Cleaning up: %s", f)
+            #            os.remove(f)
+            #sys.exit(1)
     else:
         _run_command(f"{vesta}")
 
