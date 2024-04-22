@@ -1,5 +1,7 @@
 # vesta-espresso
 
+<img src="icons/vesta-espresso.png" width="250" height="250">
+
 `vesta-espresso` is an ultra-lightweight Python package that allows you to open Quantum ESPRESSO input files in [VESTA](https://jp-minerals.org/vesta/en/). Mac users can simply download the app from the [releases](https://github.com/oashour/vesta-espresso/releases) page and use VESTA to open QE files from Finder like you would with a CIF or VASP POSCAR. Windows/Linux users can install the command line tool with `pip` and open the files in VESTA by simply typing `vesta-espresso <input file>` in your terminal. See below for installation instructions. 
 
 The script and app can accept both Quantum ESPRESSO input files and other VESTA-supported formats (which will be passed to VESTA as is without any processing), or any combination thereof. QE files are converted to a hidden VASP POSCAR file, which itself is opened in VESTA. The package does not perform any symmetry analysis or reduction, simply format and unit conversion.
