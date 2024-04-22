@@ -174,6 +174,8 @@ def main():
         else:
             logging.debug('Running "vesta" with provided files as is.')
         try:
+            # Quote filenames to handle white space
+            filenames = [f'"{f}"' for f in filenames]
             _run_command(f"{vesta} {' '.join(filenames)}")
         finally:
             sys.exit(0)
