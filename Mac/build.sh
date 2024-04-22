@@ -45,9 +45,10 @@ $HOME/code/create-dmg/create-dmg \
   --hide-extension "VESTA (ESPRESSO).app" \
   --background "dmg_background.png" \
   --app-drop-link 495 100 \
-  --install-destination "/Applications/VESTA/" \
   "build/v$1/vesta-espresso-v$1-mac.dmg" \
   "build/v$1/dmg"
+  # Drag and drop doesn't work... see issue # 7
+  #--install-destination "/Applications/VESTA/" \
 
 echo "Deleting temporary files..."
 rm -rf "$BUILD_DIR/nuitka"
