@@ -11,7 +11,10 @@
 	<key>Author</key>
 	<string>Omar A. Ashour</string>
 	<key>BundledFiles</key>
-	<array/>
+	<array>
+        <string>../LICENSE</string>
+        <string>../README.md</string>
+	</array>
 	<key>Creator</key>
 	<string>Platypus-5.4.1</string>
 	<key>DeclareService</key>
