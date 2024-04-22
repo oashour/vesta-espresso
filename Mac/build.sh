@@ -31,6 +31,9 @@ platypus \
   --bundled-file "$BUILD_DIR/nuitka/vesta-espresso.dist" \
   "$BUILD_DIR/dmg/VESTA (ESPRESSO).app"
 
+echo "Signing the app..."
+/usr/bin/codesign -s 7309FAE4DE1581ED656284C306D2E9BE529F8A44 "$BUILD_DIR/dmg/VESTA (ESPRESSO).app"
+
 echo "Calling create-dmg..."
 $HOME/code/create-dmg/create-dmg \
   --volname "VESTA (ESPRESSO)" \
@@ -42,7 +45,7 @@ $HOME/code/create-dmg/create-dmg \
   --hide-extension "VESTA (ESPRESSO).app" \
   --background "dmg_background.png" \
   --app-drop-link 495 100 \
-  --install-destination "/Applications/VESTA" \
+  --install-destination "/Applications/VESTA/" \
   "build/v$1/vesta-espresso-v$1-mac.dmg" \
   "build/v$1/dmg"
 
