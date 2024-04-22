@@ -1,14 +1,14 @@
-import sys
-import os
-import logging
-from logging import StreamHandler, FileHandler
-import shlex
-import subprocess
-import shutil
-from importlib.metadata import metadata
 import argparse
-from inspect import cleandoc
+import logging
+import os
+import shlex
+import shutil
+import subprocess
+import sys
 from argparse import RawTextHelpFormatter
+from importlib.metadata import metadata
+from inspect import cleandoc
+from logging import FileHandler, StreamHandler
 
 from vesta_espresso import PWinStructure
 
@@ -25,7 +25,7 @@ __URL__ = metadata["Home-page"]
 
 def _setup_tmpdir():
     """
-    Set up a temporary directory $HOME/.vesta-espresso 
+    Set up a temporary directory $HOME/.vesta-espresso
     to store temporary files
     """
     tmpdir = os.path.join(os.getenv("HOME"), ".vesta-espresso")
@@ -37,31 +37,6 @@ def _setup_tmpdir():
         logging.debug(f"Creating scratch directory {scratch}")
         os.makedirs(scratch)
     return tmpdir
-
-def _run_command(command):
-    """
-    Run a command and return the result. If the command fails, raise an exception.
-
-    Copied from the database module of Quantum Codex
-    """
-    logging.debug(f"Command: {command}")
-    command = shlex.split(command)
-
-    #try:
-    result = subprocess.Popen(command)#, capture_output=True, check=True)
-    #except subprocess.CalledProcessError as exc:
-    #    logging.error(
-    #        f"Status : FAIL (return code {exc.returncode}),\n"
-    #        f"stdout:\n {exc.stdout},\n"
-    #        f"stderr:\n {exc.stderr}"
-    #    )
-    #    return exc.returncode
-    #if result.stdout:
-    #    logging.debug(f"Command stdout: {result.stdout.decode('utf-8')}")
-    #if result.stderr:
-    #    logging.debug(f"Command stderr: {result.stderr.decode('utf-8')}")
-
-    return result.returncode
 
 
 def _get_parser():
@@ -83,7 +58,7 @@ def _get_parser():
     parser.add_argument(
         "--version",
         action="store_true",
-        help="Return the version of Codex",
+        help="Return the version of vesta-espresso",
     )
 
     parser.add_argument(
@@ -92,13 +67,6 @@ def _get_parser():
         action="store_true",
         help="Enable verbose output",
     )
-
-    #parser.add_argument(
-    #    "--keep",
-    #    "-k",
-    #    action="store_true",
-    #    help="Don't clean up temporary/scratch files after exit (e.g., .pw.in.vasp)",
-    #)
 
     return parser
 
@@ -141,15 +109,16 @@ def create_poscars(filenames, tmpdir):
     temp_poscars = []
     for i, f in enumerate(filenames):
         if os.path.splitext(f)[1] in [".in", ".pwi"]:
-            poscar = os.path.join(
-                tmpdir, "scratch", f".{os.path.basename(f)}.vasp"
-            )
+            poscar = os.path.join(tmpdir, "scratch", f".{os.path.basename(f)}.vasp")
             temp_poscars.append(poscar)
             logging.debug("Creating %s from %s", poscar, f)
             pwin = PWinStructure.from_file(f)
             with open(poscar, "w") as f:
                 f.write(str(pwin))
             filenames[i] = poscar
+
+    # Quote them to handle spaces in filenames
+    filenames = [f'"{f}"' for f in filenames]
     return filenames, temp_poscars
 
 
@@ -173,21 +142,14 @@ def main():
             filenames, temp_poscars = create_poscars(filenames, tmpdir)
         else:
             logging.debug('Running "vesta" with provided files as is.')
-        try:
-            # Quote filenames to handle white space
-            filenames = [f'"{f}"' for f in filenames]
-            _run_command(f"{vesta} {' '.join(filenames)}")
-        finally:
-            sys.exit(0)
-            #if not args.keep:
-            #    logging.debug("Cleaning up temporary files.")
-            #    for f in temp_poscars:
-            #        if os.path.exists(f):
-            #            logging.debug("Cleaning up: %s", f)
-            #            os.remove(f)
-            #sys.exit(1)
+        command = f"{vesta} {' '.join(filenames)}"
     else:
-        _run_command(f"{vesta}")
+        command = vesta
+
+    logging.debug(f"Command: {command}")
+    command = shlex.split(command)
+
+    subprocess.Popen(command)
 
 
 if __name__ == "__main__":
