@@ -26,7 +26,7 @@ Note that you can't use the `open` dialogue within VESTA to open Quantum ESPRESS
 If you'd like to use `vesta-espresso` from the command line, simply add the following to your `~/.bashrc` or equivalent:
 
 ```bash
-alias vesta="/Applications/VESTA/VESTA\ \(ESPRESSO\).app/Contents/Resources/vesta-espresso.dist/vesta-espresso"
+alias vesta="/Applications/VESTA\ \(ESPRESSO\).app/Contents/Resources/vesta-espresso.dist/vesta-espresso"
 ```
 
 Now you can call VESTA from the command line with both Quantum ESPRESSO files and any other natively supported files:
@@ -62,4 +62,4 @@ You can now use the `vesta-espresso` command, which I recommend aliasing to `ves
 
 The QE input to POSCAR conversion is based on a heavily stripped-down version of [pymatgen-io-espresso](https://github.com/oashour/pymatgen-io-espresso), with [f90nml](https://github.com/marshallward/f90nml), an ultralight Fortran namelist parser, as the sole dependency. Using `pymatgen-io-espresso` with this project (as in v0.0.1) lead to a huge package/app due to the Pymatgen dependency (700+ MB). On the other hand, installing `vesta-espresso` with `pip` takes up about 300 kB, and the entire Mac app is 10-20 MB and has no external dependencies, just drag and drop.
 
-The Mac app is compiled using [Nuitka](https://github.com/Nuitka/Nuitka), then a lightweight bundle is created using [Platypus](https://github.com/sveinbjornt/Platypus), and finally bundled into a `.dmg` using (my slightly modified fork of) [create-dmg](https://github.com/create-dmg/create-dmg).
+The Mac app is compiled using [Nuitka](https://github.com/Nuitka/Nuitka), then a lightweight app bundle is created using [Platypus](https://github.com/sveinbjornt/Platypus), and finally bundled into a `.dmg` using [create-dmg](https://github.com/create-dmg/create-dmg).
